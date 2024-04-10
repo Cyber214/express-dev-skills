@@ -8,11 +8,11 @@
 <body>
   <h1>Devskills</h1>
   <ul>
-    <% devskills.forEach(todo => { %>
+    <% devskills.forEach(devskill => { %>
       <li>
-				<%= devskills.text %> 
+				<%= devskill.skill %> 
 				- 
-				<%= devskills.done ? 'done' : 'not done' %>
+				<%= devskill.completed ? 'complete' : 'incomplete' %>
 			</li>
     <% }) %>
   </ul>
