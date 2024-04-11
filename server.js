@@ -5,7 +5,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import createError from 'http-errors'
 import logger from 'morgan'
-// connect to the database with Mongoose
 import './config/database.js'
 
 // import routers
