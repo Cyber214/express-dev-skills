@@ -8,7 +8,7 @@ function index(req, res) {
       devskills: devskills
     })
   })
-  .catch(error => { // If there's an error, console.log it and redirect back home!
+  .catch(error => {
     console.log(error)
     res.redirect('/')
   })
@@ -18,7 +18,20 @@ function newDevskill(req, res) {
   res.render('devskills/new')
 }
 
+function create(req, res) {
+  req.body.completed = false
+  Devskill.create(req.body)
+  .then(devskill => {
+    res.redirect('/devskills')
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/devskills')
+  })
+}
+
 export{
   index,
-  newDevskill as new
+  newDevskill as new,
+  create,
 }
