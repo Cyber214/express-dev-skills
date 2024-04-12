@@ -16,8 +16,9 @@
           method="POST"
           class="delete-form"
         >
-          <button type="submit">X</button>
+        <button class="delete-button" type="submit">X</button>
         </form>
+        <a href="/devskills/<%= devskill._id %>/edit"><button class="edit-button">✏️</button></a>
 				<a href="/devskills/<%= devskill._id %>"><%= devskill.text %></a>
 				- 
 				<%= devskill.completed ? 'complete' : 'incomplete' %>

@@ -1,9 +1,8 @@
-// Import the model that we exported in the Todo.js model file
-import { Devskill } from '../models/devskill.js'
+import { Devskill } from "../models/devskill.js"
 
 function index(req, res) {
   Devskill.find({})
-  .then(devskills => { // devskills represents the result of the query, in this case ALL devskills
+  .then(devskills => {
     res.render('devskills/index', {
       devskills: devskills,
       time: req.time
@@ -20,9 +19,12 @@ function newDevskill(req, res) {
 }
 
 function create(req, res) {
-  req.body.completed = false
+  // set the done property to false
+  req.body.done = false
+  // create devskill
   Devskill.create(req.body)
   .then(devskill => {
+    // redirect to devskills index
     res.redirect('/devskills')
   })
   .catch(error => {
@@ -32,9 +34,11 @@ function create(req, res) {
 }
 
 function show(req, res) {
+  // find the devskill in the database by it's _id
   Devskill.findById(req.params.devskillId)
   .then(devskill => {
-    res.render("devskills/show", {
+    // render it
+    res.render('devskills/show', {
       devskill: devskill
     })
   })
@@ -45,21 +49,54 @@ function show(req, res) {
 }
 
 function deleteDevskill(req, res) {
+  // use model to delete a devskill
   Devskill.findByIdAndDelete(req.params.devskillId)
   .then(devskill => {
-    res.redirect("/devskills")
+    // redirect to devskills index
+    res.redirect('/devskills')
   })
   .catch(error => {
     console.log(error)
     res.redirect('/devskills')
   })
-  
 }
 
-export{
+function edit(req, res) {
+  // find the devskill and pass it to render
+  Devskill.findById(req.params.devskillId)
+  .then(devskill => {
+    // render a view with a form (edit.ejs)
+    res.render('devskills/edit', {
+      devskill: devskill
+    })
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/devskills')
+  })
+}
+
+function update(req, res) {
+  // handle checkbox logic
+  req.body.done = !!req.body.done
+  // find the devskill by id and update
+  Devskill.findByIdAndUpdate(req.params.devskillId, req.body, {new: true})
+  .then(devskill => {
+    // redirect back to show view
+    res.redirect(`/devskills/${req.params.devskillId}`)
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/devskills')
+  })
+}
+
+export {
   index,
   newDevskill as new,
   create,
   show,
   deleteDevskill as delete,
+  edit,
+  update,
 }
