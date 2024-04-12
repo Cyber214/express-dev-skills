@@ -8,6 +8,8 @@ router.get('/', devskillsCtrl.index)
 
 router.get('/new', devskillsCtrl.new)
 
+router.get('/:devskillId', devskillsCtrl.show)
+
 router.post('/', devskillsCtrl.create)
 
 export { router }
