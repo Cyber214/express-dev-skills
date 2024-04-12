@@ -12,4 +12,6 @@ router.get('/:devskillId', devskillsCtrl.show)
 
 router.post('/', devskillsCtrl.create)
 
+router.delete("/:devskillId", devskillsCtrl.delete)
+
 export { router }

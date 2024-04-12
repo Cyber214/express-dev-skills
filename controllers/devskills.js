@@ -5,7 +5,8 @@ function index(req, res) {
   Devskill.find({})
   .then(devskills => { // devskills represents the result of the query, in this case ALL devskills
     res.render('devskills/index', {
-      devskills: devskills
+      devskills: devskills,
+      time: req.time
     })
   })
   .catch(error => {
@@ -43,9 +44,22 @@ function show(req, res) {
   })
 }
 
+function deleteDevskill(req, res) {
+  Devskill.findByIdAndDelete(req.params.devskillId)
+  .then(devskill => {
+    res.redirect("/devskills")
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/devskills')
+  })
+  
+}
+
 export{
   index,
   newDevskill as new,
   create,
   show,
+  deleteDevskill as delete,
 }

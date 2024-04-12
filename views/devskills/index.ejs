@@ -4,12 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Express Dev-skills</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
   <h1>Devskills</h1>
   <ul>
     <% devskills.forEach(devskill => { %>
       <li>
+        <form 
+          action="/devskills/<%= devskill._id %>?_method=DELETE"
+          method="POST"
+          class="delete-form"
+        >
+          <button type="submit">X</button>
+        </form>
 				<a href="/devskills/<%= devskill._id %>"><%= devskill.text %></a>
 				- 
 				<%= devskill.completed ? 'complete' : 'incomplete' %>
